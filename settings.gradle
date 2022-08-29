@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Soft Card"
+include ':app'
+include ':core'
+include ':core-ui'
+include ':auth'
+include ':auth:auth_domain'
+include ':auth:auth_data'
+include ':auth:auth_presentation'
+include ':cards'
+include ':cards:cards_data'
+include ':cards:cards_domain'
+include ':cards:cards_presentation'
