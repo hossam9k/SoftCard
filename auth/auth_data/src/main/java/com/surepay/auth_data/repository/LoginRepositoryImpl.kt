@@ -1,6 +1,6 @@
 package com.surepay.auth_data.repository
 
-import com.surepay.auth_data.mapper.toAuthDomain
+import com.surepay.auth_data.mapper.toLoginDomain
 import com.surepay.auth_data.remote.LoginApi
 import com.surepay.auth_domain.login_model.Login
 import com.surepay.auth_domain.repositpry.LoginRepository
@@ -16,7 +16,7 @@ class LoginRepositoryImpl (
                data = authApi.login(
                    email= email,
                    password = password
-               ).toAuthDomain()
+               ).toLoginDomain()
            )
        }catch(e: Exception) {
            e.printStackTrace()
