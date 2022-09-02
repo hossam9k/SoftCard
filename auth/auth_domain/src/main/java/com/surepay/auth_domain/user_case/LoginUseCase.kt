@@ -1,11 +1,11 @@
 package com.surepay.auth_domain.user_case
 
-import com.surepay.auth_domain.login_model.Login
-import com.surepay.auth_domain.repositpry.LoginRepository
+import com.surepay.auth_domain.model.Login
+import com.surepay.auth_domain.repositpry.AuthRepository
 import com.surepay.core.util.Resource
 
 class LoginUseCase(
-    private val authRepository: LoginRepository
+    private val authRepository: AuthRepository
     ){
         suspend operator fun invoke(
         email: String,

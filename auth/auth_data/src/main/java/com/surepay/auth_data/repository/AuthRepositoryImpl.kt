@@ -1,21 +1,22 @@
 package com.surepay.auth_data.repository
 
 import com.surepay.auth_data.mapper.toLoginDomain
-import com.surepay.auth_data.remote.LoginApi
-import com.surepay.auth_domain.login_model.Login
-import com.surepay.auth_domain.repositpry.LoginRepository
+import com.surepay.auth_data.remote.AuthApi
+import com.surepay.auth_domain.model.Login
+import com.surepay.auth_domain.repositpry.AuthRepository
 import com.surepay.core.util.Resource
+import kotlinx.coroutines.flow.Flow
 
-class LoginRepositoryImpl (
-    private val authApi: LoginApi
-        ): LoginRepository {
+class AuthRepositoryImpl (
+    private val authApi: AuthApi
+        ): AuthRepository {
 
     override suspend fun login(email: String, password: String): Resource<Login> {
        return try {
            Resource.Success(
                data = authApi.login(
-                   email= email,
-                   password = password
+//                   email= email,
+//                   password = password
                ).toLoginDomain()
            )
        }catch(e: Exception) {

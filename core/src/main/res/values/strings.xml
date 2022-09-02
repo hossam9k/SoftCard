@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="error_something_went_wrong">Oops, something went wrong!</string>
+
+
+    //Login
+    <string name="login">LOGIN</string>
+    <string name="email_hint">email@email.com</string>
+
+</resources>

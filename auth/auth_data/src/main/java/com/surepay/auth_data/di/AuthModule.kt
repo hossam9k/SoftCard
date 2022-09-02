@@ -1,8 +1,9 @@
 package com.surepay.auth_data.di
 
-import com.surepay.auth_data.remote.LoginApi
-import com.surepay.auth_data.repository.LoginRepositoryImpl
-import com.surepay.auth_domain.repositpry.LoginRepository
+import com.surepay.auth_data.BuildConfig
+import com.surepay.auth_data.remote.AuthApi
+import com.surepay.auth_data.repository.AuthRepositoryImpl
+import com.surepay.auth_domain.repositpry.AuthRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object LoginModule {
+object AuthModule {
 
     @Provides
     @Singleton
@@ -24,7 +25,7 @@ object LoginModule {
         return OkHttpClient.Builder()
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
-                    level = HttpLoggingInterceptor.Level.BODY
+                    level =  if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
                 }
             )
             .build()
@@ -32,9 +33,9 @@ object LoginModule {
 
     @Provides
     @Singleton
-    fun provideOpenFoodApi(client: OkHttpClient): LoginApi {
+    fun provideOpenFoodApi(client: OkHttpClient): AuthApi {
         return Retrofit.Builder()
-            .baseUrl(LoginApi.BASE_URL)
+            .baseUrl(AuthApi.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(client)
             .build()
@@ -45,9 +46,9 @@ object LoginModule {
     @Provides
     @Singleton
     fun provideTrackerRepository(
-        authApi: LoginApi
-    ): LoginRepository {
-        return LoginRepositoryImpl(
+        authApi: AuthApi
+    ): AuthRepository {
+        return AuthRepositoryImpl(
             authApi = authApi
         )
     }

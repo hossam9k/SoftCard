@@ -54,7 +54,7 @@ dependencies {
     implementation(Compose.hiltNavigationCompose)
     implementation(Compose.material)
     implementation(Compose.runtime)
-    implementation(Compose.composeDestinations)
+    implementation(Compose.navigation)
     implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
 
@@ -63,10 +63,9 @@ dependencies {
 
     implementation(project(Modules.core))
     implementation(project(Modules.coreUi))
-    implementation(project(Modules.authData))
-    implementation(project(Modules.authDomain))
     implementation(project(Modules.authPresentation))
-
+    implementation(project(Modules.authDomain))
+    implementation(project(Modules.authData))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
@@ -104,5 +103,62 @@ dependencies {
     androidTestImplementation(Testing.hiltTesting)
     kaptAndroidTest(DaggerHilt.hiltCompiler)
     androidTestImplementation(Testing.testRunner)
+}
+dependencies {
+    implementation(Compose.compiler)
+    implementation(Compose.ui)
+    implementation(Compose.uiToolingPreview)
+    implementation(Compose.hiltNavigationCompose)
+    implementation(Compose.material)
+    implementation(Compose.runtime)
+    implementation(Compose.navigation)
+    implementation(Compose.viewModelCompose)
+    implementation(Compose.activityCompose)
 
+    implementation(DaggerHilt.hiltAndroid)
+    kapt(DaggerHilt.hiltCompiler)
+
+    implementation(project(Modules.core))
+    implementation(project(Modules.coreUi))
+    implementation(project(Modules.authPresentation))
+    implementation(project(Modules.authDomain))
+    implementation(project(Modules.authData))
+
+    implementation(AndroidX.coreKtx)
+    implementation(AndroidX.appCompat)
+
+    implementation(Coil.coilCompose)
+
+    implementation(Google.material)
+
+    implementation(Retrofit.okHttp)
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.okHttpLoggingInterceptor)
+    implementation(Retrofit.moshiConverter)
+
+    kapt(Room.roomCompiler)
+    implementation(Room.roomKtx)
+    implementation(Room.roomRuntime)
+
+    testImplementation(Testing.junit4)
+    testImplementation(Testing.junitAndroidExt)
+    testImplementation(Testing.truth)
+    testImplementation(Testing.coroutines)
+    testImplementation(Testing.turbine)
+
+    testImplementation(Testing.composeUiTest)
+    testImplementation(Testing.mockk)
+    testImplementation(Testing.mockWebServer)
+
+    androidTestImplementation(Testing.junit4)
+    androidTestImplementation(Testing.junitAndroidExt)
+    androidTestImplementation(Testing.truth)
+    androidTestImplementation(Testing.coroutines)
+    androidTestImplementation(Testing.turbine)
+    androidTestImplementation(Testing.composeUiTest)
+    androidTestImplementation(Testing.mockkAndroid)
+    androidTestImplementation(Testing.mockWebServer)
+    androidTestImplementation(Testing.hiltTesting)
+    kaptAndroidTest(DaggerHilt.hiltCompiler)
+    androidTestImplementation(Testing.testRunner)
 }

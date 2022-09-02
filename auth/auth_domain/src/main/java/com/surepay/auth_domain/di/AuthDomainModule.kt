@@ -1,6 +1,6 @@
 package com.surepay.auth_domain.di
 
-import com.surepay.auth_domain.repositpry.LoginRepository
+import com.surepay.auth_domain.repositpry.AuthRepository
 import com.surepay.auth_domain.user_case.LoginUseCase
 import dagger.Module
 import dagger.Provides
@@ -10,14 +10,14 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object LoginDomainModule {
+object AuthDomainModule {
 
     @ViewModelScoped
     @Provides
     fun provideLoginUseCase(
-        loginRepository: LoginRepository
+        authRepository: AuthRepository
     ): LoginUseCase{
-        return LoginUseCase(loginRepository)
+        return LoginUseCase(authRepository)
     }
 
 }
