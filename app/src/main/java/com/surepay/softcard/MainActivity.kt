@@ -1,5 +1,6 @@
 package com.surepay.softcard
 
+import android.annotation.SuppressLint
 import androidx.navigation.compose.NavHost
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalComposeUiApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,10 +41,16 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(
                                 scaffoldState = scaffoldState,
                                 navigateToCardsScreen = {
-                                navController.navigate(Route.CARDS)
+                                navController.navigate(Route.CARDS){
+
+
+                                }
 
                             }
                             )
+                        }
+
+                        composable(Route.CARDS){
                         }
                     }
                 }

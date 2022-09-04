@@ -36,27 +36,26 @@ class LoginViewModel @Inject constructor(
 
 
     fun onEmailEnter(email:String){
-        if (email.isNotBlank()){
+        if (email.isNotBlank())
             this.email = email
-        }
     }
 
     fun onPasswordEnter(password: String){
-        if (password.isNotBlank()){
+        if (password.isNotBlank())
             this.password = password
-        }
     }
 
     fun onEvent(event: LoginEvent){
         when(event){
             is LoginEvent.OnLoginClick -> {
+                if (email.isNotBlank() && password.isNotBlank())
                 executeLogin(email,password)
             }
         }
 
     }
 
-    fun executeLogin(email: String, password: String){
+    private fun executeLogin(email: String, password: String){
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true,
@@ -82,7 +81,7 @@ class LoginViewModel @Inject constructor(
                         error = null
                     )
                     Log.d("APIA",result.toString())
-
+                    _uiEvent.send(UiEvent.Success)
                 }
             }
         }
