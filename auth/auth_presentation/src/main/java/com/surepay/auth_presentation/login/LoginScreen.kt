@@ -29,7 +29,6 @@ fun LoginScreen(
     val state = loginViewModel.state
     val context = LocalContext.current
 
-
     LaunchedEffect(key1 = true) {
         loginViewModel.uiEvent.collect { event ->
             when (event) {
@@ -46,8 +45,8 @@ fun LoginScreen(
         }
     }
     LoginBody(loginViewModel,state)
-
 }
+
 @Composable
 fun LoginBody(
     loginViewModel: LoginViewModel,
@@ -63,16 +62,18 @@ fun LoginBody(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         UnitTextField(
+            label = { Text(text =stringResource(id = R.string.email_hint)) },
             value = loginViewModel.email,
-            onValueChange = loginViewModel::onEmailEnter,
-            unit = stringResource(id = R.string.email_hint)
+            onValueChange =
+                loginViewModel::onEmailEnter
+            ,
 
         )
         Spacer(modifier = Modifier.height(spacing.spaceExtraLarge))
         UnitTextField(
+            label = { Text(text = stringResource(id = R.string.password_hint)) },
             value = loginViewModel.password,
             onValueChange = loginViewModel::onPasswordEnter,
-            unit = stringResource(id = R.string.password_hint)
         )
         Spacer(modifier = Modifier.height(spacing.spaceLarge))
 

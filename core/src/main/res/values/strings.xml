@@ -5,7 +5,7 @@
 
     //Login
     <string name="login">LOGIN</string>
-    <string name="email_hint">email@email.com</string>
-    <string name="password_hint">********</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
 
 </resources>

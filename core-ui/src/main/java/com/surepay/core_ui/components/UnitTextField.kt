@@ -20,7 +20,8 @@ import androidx.compose.ui.unit.dp
 fun UnitTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    unit: String,
+//    unit: String,
+    label: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle(
         color = MaterialTheme.colors.primaryVariant,
@@ -36,16 +37,14 @@ fun UnitTextField(
             value = value,
             onValueChange = onValueChange,
             textStyle = textStyle,
+            label = label,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email
+                keyboardType = KeyboardType.Email,
             ),
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = modifier.width(spacing.spaceSmall))
-        Text(
-            text = unit,
-            modifier = modifier.height(spacing.spaceSmall)
-        )
+
     }
 }

@@ -36,12 +36,10 @@ class LoginViewModel @Inject constructor(
 
 
     fun onEmailEnter(email:String){
-        if (email.isNotBlank())
             this.email = email
     }
 
     fun onPasswordEnter(password: String){
-        if (password.isNotBlank())
             this.password = password
     }
 
