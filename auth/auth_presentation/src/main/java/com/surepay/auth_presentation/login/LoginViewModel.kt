@@ -7,6 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.surepay.auth_domain.use_case.LoginUseCase
+import com.surepay.auth_presentation.utils.isEmailNotBlank
+import com.surepay.auth_presentation.utils.isPasswordEmpty
 import com.surepay.core.R
 import com.surepay.core.util.Resource
 import com.surepay.core.util.UiEvent
@@ -43,10 +45,17 @@ class LoginViewModel @Inject constructor(
             this.password = password
     }
 
+    fun verifyLogin(){
+        if (email.isNotBlank() && password.isNotBlank()){
+
+        }
+
+    }
+
     fun onEvent(event: LoginEvent){
         when(event){
             is LoginEvent.OnLoginClick -> {
-                if (email.isNotBlank() && password.isNotBlank())
+                if (isEmailNotBlank(email) && isPasswordEmpty(password))
                 executeLogin(email,password)
             }
             else -> {
