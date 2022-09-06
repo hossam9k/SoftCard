@@ -56,10 +56,7 @@ class LoginUseCaseTest {
         assertThat(actual).isEqualTo(expected)
     }
 
-    @Test
-    fun `is email valid format and fail`(){
-        assertThat(isValidEmail("")).isFalse()
-    }
+
 
     @Test
     fun `when invoke with Server Error email then return empty error state`()= runBlocking{
