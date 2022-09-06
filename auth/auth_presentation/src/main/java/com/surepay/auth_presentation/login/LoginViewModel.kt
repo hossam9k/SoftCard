@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.surepay.auth_domain.user_case.LoginUseCase
+import com.surepay.auth_domain.use_case.LoginUseCase
 import com.surepay.core.R
 import com.surepay.core.util.Resource
 import com.surepay.core.util.UiEvent
@@ -25,10 +25,10 @@ class LoginViewModel @Inject constructor(
     var state by mutableStateOf(LoginState())
     private set
 
-    var email by mutableStateOf("email@email.com")
+    var email by mutableStateOf("")
         private set
 
-    var password by mutableStateOf("123456")
+    var password by mutableStateOf("")
         private set
 
     private val _uiEvent = Channel<UiEvent>()
@@ -51,6 +51,9 @@ class LoginViewModel @Inject constructor(
                 if (email.isNotBlank() && password.isNotBlank())
                 executeLogin(email,password)
             }
+            else -> {
+
+            }
         }
 
     }
@@ -65,10 +68,11 @@ class LoginViewModel @Inject constructor(
                 is Resource.Error -> {
                     state = state.copy(
                         isLoading = false,
-                        error = ""
+                        error = UiText.StringResource(R.string.error_something_went_wrong)
                     )
                     _uiEvent.send(
-                        UiEvent.ShowSnackbar(
+
+                        UiEvent.showErrorMessagge(
                             UiText.StringResource(R.string.error_something_went_wrong)
                         )
                     )

@@ -1,4 +1,4 @@
-package com.surepay.auth_domain.user_case
+package com.surepay.auth_domain.use_case
 
 import com.surepay.auth_domain.model.Login
 import com.surepay.auth_domain.repositpry.AuthRepository

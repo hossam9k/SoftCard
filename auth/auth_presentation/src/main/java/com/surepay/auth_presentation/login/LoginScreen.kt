@@ -1,10 +1,7 @@
 package com.surepay.auth_presentation.login
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -12,13 +9,15 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.surepay.core_ui.LocalSpacing
 import com.surepay.core_ui.components.ActionButton
 import com.surepay.core.R
 import com.surepay.core.util.UiEvent
+import com.surepay.core_ui.Dimensions
 import com.surepay.core_ui.components.UnitTextField
+import com.surepay.core_ui.theme.SoftCardTheme
 
 @ExperimentalComposeUiApi
 @Composable
@@ -27,14 +26,14 @@ fun LoginScreen(
     navigateToCardsScreen: () -> Unit,
     loginViewModel: LoginViewModel = hiltViewModel()
 ){
-    val spacing = LocalSpacing.current
     val state = loginViewModel.state
     val context = LocalContext.current
+
 
     LaunchedEffect(key1 = true) {
         loginViewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.ShowSnackbar -> {
+                is UiEvent.showErrorMessagge -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message.asString(context)
                     )
@@ -46,6 +45,15 @@ fun LoginScreen(
             }
         }
     }
+    LoginBody(loginViewModel,state)
+
+}
+@Composable
+fun LoginBody(
+    loginViewModel: LoginViewModel,
+    state : LoginState,
+    spacing: Dimensions = LocalSpacing.current,
+){
 
     Column(
         modifier = Modifier
@@ -70,7 +78,7 @@ fun LoginScreen(
 
         ActionButton(
             text = stringResource(id = R.string.login),
-            onClick = { loginViewModel.onEvent(LoginEvent.OnLoginClick("","")) },
+            onClick = { loginViewModel.onEvent(LoginEvent.OnLoginClick) },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
     }
@@ -83,5 +91,17 @@ fun LoginScreen(
 
         }
     }
+}
 
+@ExperimentalComposeUiApi
+@Preview
+@Composable
+fun PreviewLoginScreen(loginViewModel: LoginViewModel = hiltViewModel(),state : LoginState = LoginState()){
+    SoftCardTheme(darkTheme = false){
+        Scaffold {
+            LoginBody(loginViewModel,state)
+        }
+
+
+    }
 }

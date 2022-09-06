@@ -1,4 +1,4 @@
-package com.surepay.softcard.ui.theme
+package com.surepay.core_ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

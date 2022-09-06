@@ -14,7 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.surepay.auth_presentation.login.LoginScreen
 import com.surepay.softcard.navigation.Route
-import com.surepay.softcard.ui.theme.SoftCardTheme
+import com.surepay.core_ui.theme.SoftCardTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalComposeUiApi

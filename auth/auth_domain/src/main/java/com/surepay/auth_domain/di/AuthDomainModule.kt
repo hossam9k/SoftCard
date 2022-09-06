@@ -1,7 +1,7 @@
 package com.surepay.auth_domain.di
 
 import com.surepay.auth_domain.repositpry.AuthRepository
-import com.surepay.auth_domain.user_case.LoginUseCase
+import com.surepay.auth_domain.use_case.LoginUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
