@@ -71,8 +71,8 @@ class AuthRepositoryImplTest {
                 .setBody(validLoginResponse)
         )
         val result: Resource<Login> = repository.login("jhgf","gfd")
-        val isSuccess = result is Resource.Error
-        assertThat(isSuccess).isTrue()
+        val isFailure = result is Resource.Error
+        assertThat(isFailure).isTrue()
     }
 
     @Test
@@ -82,8 +82,8 @@ class AuthRepositoryImplTest {
                 .setBody(malformedLoginResponse)
         )
         val result = repository.login("banana", "asaw")
-        val isSuccess = result is Resource.Error
+        val isFailure = result is Resource.Error
 
-        assertThat(isSuccess).isFalse()
+        assertThat(isFailure).isTrue()
     }
 }
