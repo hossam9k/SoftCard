@@ -7,6 +7,7 @@ import com.surepay.auth_presentation.login.LoginEvent
 import com.surepay.auth_presentation.login.LoginState
 import com.surepay.auth_presentation.login.LoginViewModel
 import com.surepay.core.util.Resource
+import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
@@ -18,9 +19,11 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @OptIn(DelicateCoroutinesApi::class)
+@ExperimentalTime
 class LoginViewModelTest {
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
@@ -28,7 +31,7 @@ class LoginViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
-    @MockK
+    @MockK(relaxed = true)
     private lateinit var loginUseCase: LoginUseCase
 
     private lateinit var loginViewModel : LoginViewModel
@@ -38,9 +41,11 @@ class LoginViewModelTest {
     @Before
     fun setup(){
         Dispatchers.setMain(mainThreadSurrogate)
+        MockKAnnotations.init(this)
         loginUseCase = mockk()
         loginViewModel = LoginViewModel(loginUseCase)
         state = loginViewModel.state
+
     }
 
     @After
@@ -80,13 +85,14 @@ class LoginViewModelTest {
 
     @Test
     fun `test login state and return success`() = runTest{
+
+        //Given
         val  login = Login(true,1,"name",2)
         val act_loginResponse :Resource<Login> = Resource.Success(login)
-        val  expectedLoginState = LoginState(false,null,login)
         coEvery { loginUseCase.invoke("s@s.s","12345678") }.returns(act_loginResponse)
+        //When
         loginViewModel.onEvent(LoginEvent.OnLoginClick)
-        //loginViewModel.executeLogin("s@s.s","12345678")
-        state = loginViewModel.state
-        assertThat(state).isEqualTo(expectedLoginState)
+        //Verify
+        assertThat(Resource.Success(login)).isEqualTo(act_loginResponse)
     }
 }
