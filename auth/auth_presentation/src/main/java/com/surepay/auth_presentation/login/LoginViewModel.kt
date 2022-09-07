@@ -45,27 +45,18 @@ class LoginViewModel @Inject constructor(
             this.password = password
     }
 
-    fun verifyLogin(){
-        if (email.isNotBlank() && password.isNotBlank()){
-
-        }
-
-    }
-
     fun onEvent(event: LoginEvent){
         when(event){
             is LoginEvent.OnLoginClick -> {
                 if (isEmailNotBlank(email) && isPasswordEmpty(password))
                 executeLogin(email,password)
             }
-            else -> {
-
-            }
+            LoginEvent.Error -> {}
         }
 
     }
 
-    private fun executeLogin(email: String, password: String){
+      private fun executeLogin(email: String, password: String){
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true,

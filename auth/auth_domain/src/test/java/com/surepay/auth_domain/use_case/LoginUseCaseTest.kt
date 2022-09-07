@@ -3,13 +3,10 @@ package com.surepay.auth_domain.use_case
 import com.google.common.truth.Truth.assertThat
 import com.surepay.auth_domain.model.Login
 import com.surepay.auth_domain.repositpry.AuthRepository
-import com.surepay.auth_domain.use_case.utils.isValidEmail
 import com.surepay.core.util.Resource
-import io.mockk.InternalPlatformDsl.toStr
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before

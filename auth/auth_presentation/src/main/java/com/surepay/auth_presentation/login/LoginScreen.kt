@@ -1,5 +1,6 @@
 package com.surepay.auth_presentation.login
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -29,21 +30,34 @@ fun LoginScreen(
     val state = loginViewModel.state
     val context = LocalContext.current
 
+
+
+
     LaunchedEffect(key1 = true) {
-        loginViewModel.uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.showErrorMessagge -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message.asString(context)
-                    )
-                }
-                is UiEvent.Success -> {
-                    navigateToCardsScreen()
-                }
-                else -> Unit
-            }
+        state.login?.let {
+            Log.d("LoginTag",it.title)
         }
+        state.error?.let {
+
+            scaffoldState.snackbarHostState.showSnackbar(
+                message = state.error.asString(context)
+            )
+        }
+//        loginViewModel.uiEvent.collect { event ->
+//            when (event) {
+//                is UiEvent.showErrorMessagge -> {
+//                    scaffoldState.snackbarHostState.showSnackbar(
+//                        message = event.message.asString(context)
+//                    )
+//                }
+//                is UiEvent.Success -> {
+//                    navigateToCardsScreen()
+//                }
+//                else -> Unit
+//            }
+//        }
     }
+
     LoginBody(loginViewModel,state)
 }
 
