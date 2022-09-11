@@ -61,7 +61,7 @@ class LoginViewModel @Inject constructor(
                 error = null
             )
             when(val result = loginUseCase(email,password)){
-                is Resource.Error -> {
+                is Resource.Error<*> -> {
                     if (result.error is EmailValidationException.InvalidEmail){
                         state = state.copy(
                             isLoading = false,

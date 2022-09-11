@@ -65,11 +65,11 @@ class LoginViewModelTest {
     fun `login and return error`() = testCoroutineRule.runTest{
         val email = "s@s.com"
         val password = "12345678"
-        val expcted_loginResponse :Resource<Login> = Resource.Error(LoginException.UNAUTHORIZED)
+        val expcted_loginResponse :Resource<Login> = Resource.Error(error = LoginException.UNAUTHORIZED,  message = null)
 
         coEvery { loginUseCase.invoke(email,password) }.returns(expcted_loginResponse)
 
-        val actual_loginResponse :Resource<Login> = Resource.Error(LoginException.UNAUTHORIZED)
+        val actual_loginResponse :Resource<Login> = Resource.Error(error = LoginException.UNAUTHORIZED, message = null)
 
         assertThat(actual_loginResponse).isEqualTo(expcted_loginResponse)
     }

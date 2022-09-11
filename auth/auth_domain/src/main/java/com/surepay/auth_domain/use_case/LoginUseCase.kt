@@ -16,11 +16,11 @@ class LoginUseCase(
         password: String
         ):Resource<Login>{
             if (!isEmailNotBlank(email) && !isPasswordNotBlank(password)){
-                return Resource.Error(EmailValidationException.EmptyEmail)
+                return Resource.Error(EmailValidationException.EmptyEmail, message = null)
             }
 
             if(!isValidEmail(email)){
-                return Resource.Error(EmailValidationException.InvalidEmail)
+                return Resource.Error(error=  EmailValidationException.InvalidEmail , message = null)
             }
 
             return authRepository.login(email,password)

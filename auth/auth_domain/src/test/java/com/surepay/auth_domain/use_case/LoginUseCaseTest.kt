@@ -35,7 +35,7 @@ class LoginUseCaseTest {
         val email = "aa.a"
        //act
         val actual = loginUseCase.invoke(email, "")
-        val expected = Resource.Error(EmailValidationException.InvalidEmail)
+        val expected = Resource.Error(error = EmailValidationException.InvalidEmail , message = null)
       // assert
         assertThat(actual).isEqualTo(expected)
     }
@@ -62,9 +62,9 @@ class LoginUseCaseTest {
         val email = "aa.a"
         val password = "11"
         //act
-        val expected  = Resource.Error(EmailValidationException.InvalidEmail)
+        val expected  = Resource.Error(error =EmailValidationException.InvalidEmail, message = null)
         coEvery { authRepository.login(email,password) }.returns(expected)
-        val actual = Resource.Error(EmailValidationException.InvalidEmail)
+        val actual = Resource.Error(error = EmailValidationException.InvalidEmail, message = null)
 
         // assert
         assertThat(actual).isEqualTo(expected)
