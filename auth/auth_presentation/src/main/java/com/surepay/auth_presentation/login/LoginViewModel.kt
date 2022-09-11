@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.surepay.auth_domain.use_case.LoginUseCase
-import com.surepay.auth_domain.validation_exeptions.EmailValidationException
+import com.surepay.auth_domain.exeptions.EmailValidationException
 import com.surepay.core.R
 import com.surepay.core.util.Resource
 import com.surepay.core.util.UiEvent

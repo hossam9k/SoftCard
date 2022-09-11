@@ -3,6 +3,7 @@ package com.surepay.auth_domain.use_case
 import com.google.common.truth.Truth.assertThat
 import com.surepay.auth_domain.model.Login
 import com.surepay.auth_domain.repositpry.AuthRepository
+import com.surepay.auth_domain.exeptions.EmailValidationException
 import com.surepay.core.util.Resource
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -34,7 +35,7 @@ class LoginUseCaseTest {
         val email = "aa.a"
        //act
         val actual = loginUseCase.invoke(email, "")
-        val expected = Resource.Error("")
+        val expected = Resource.Error(EmailValidationException.InvalidEmail)
       // assert
         assertThat(actual).isEqualTo(expected)
     }
@@ -61,9 +62,9 @@ class LoginUseCaseTest {
         val email = "aa.a"
         val password = "11"
         //act
-        val expected  = Resource.Error("Error Unauthorized")
+        val expected  = Resource.Error(EmailValidationException.InvalidEmail)
         coEvery { authRepository.login(email,password) }.returns(expected)
-        val actual = Resource.Error("Error Unauthorized")
+        val actual = Resource.Error(EmailValidationException.InvalidEmail)
 
         // assert
         assertThat(actual).isEqualTo(expected)

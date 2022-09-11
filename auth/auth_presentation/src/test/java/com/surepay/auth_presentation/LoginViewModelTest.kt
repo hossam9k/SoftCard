@@ -1,6 +1,7 @@
 package com.surepay.auth_presentation
 
 import com.google.common.truth.Truth.assertThat
+import com.surepay.auth_domain.exeptions.LoginException
 import com.surepay.auth_domain.model.Login
 import com.surepay.auth_domain.use_case.LoginUseCase
 import com.surepay.auth_presentation.login.LoginViewModel
@@ -64,11 +65,11 @@ class LoginViewModelTest {
     fun `login and return error`() = testCoroutineRule.runTest{
         val email = "s@s.com"
         val password = "12345678"
-        val expcted_loginResponse :Resource<Login> = Resource.Error("Error Unauthorized")
+        val expcted_loginResponse :Resource<Login> = Resource.Error(LoginException.UNAUTHORIZED)
 
         coEvery { loginUseCase.invoke(email,password) }.returns(expcted_loginResponse)
 
-        val actual_loginResponse :Resource<Login> = Resource.Error("Error Unauthorized")
+        val actual_loginResponse :Resource<Login> = Resource.Error(LoginException.UNAUTHORIZED)
 
         assertThat(actual_loginResponse).isEqualTo(expcted_loginResponse)
     }
