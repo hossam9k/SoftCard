@@ -2,6 +2,7 @@ package com.surepay.auth_domain.di
 
 import com.surepay.auth_domain.repositpry.AuthRepository
 import com.surepay.auth_domain.use_case.LoginUseCase
+import com.surepay.core.domain.qualifier.TestQualifier
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +16,7 @@ object AuthDomainModule {
     @ViewModelScoped
     @Provides
     fun provideLoginUseCase(
-        authRepository: AuthRepository
+        @TestQualifier authRepository: AuthRepository
     ): LoginUseCase{
         return LoginUseCase(authRepository)
     }

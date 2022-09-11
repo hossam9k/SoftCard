@@ -3,14 +3,11 @@ package com.surepay.auth_presentation
 import com.google.common.truth.Truth.assertThat
 import com.surepay.auth_domain.model.Login
 import com.surepay.auth_domain.use_case.LoginUseCase
-import com.surepay.auth_presentation.login.LoginEvent
-import com.surepay.auth_presentation.login.LoginState
 import com.surepay.auth_presentation.login.LoginViewModel
 import com.surepay.core.util.Resource
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -29,7 +26,8 @@ class LoginViewModelTest {
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
     @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
+    val testCoroutineRule = TestCoroutineRule()
+
 
     @MockK(relaxed = true)
     private lateinit var loginUseCase: LoginUseCase
@@ -40,19 +38,13 @@ class LoginViewModelTest {
 
     @Before
     fun setup(){
+        MockKAnnotations.init(this)
         Dispatchers.setMain(mainThreadSurrogate)
-        loginUseCase = mockk()
+        //loginUseCase = mockk()
         loginViewModel = LoginViewModel(loginUseCase)
        // state = loginViewModel.state
 
     }
-
-    @After
-    fun tearDown(){
-        Dispatchers.resetMain()
-        mainThreadSurrogate.close()
-    }
-
 
     @Test
     fun `login and return success`() = runTest {
@@ -69,7 +61,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `login and return error`() = runTest{
+    fun `login and return error`() = testCoroutineRule.runTest{
         val email = "s@s.com"
         val password = "12345678"
         val expcted_loginResponse :Resource<Login> = Resource.Error("Error Unauthorized")
@@ -81,15 +73,10 @@ class LoginViewModelTest {
         assertThat(actual_loginResponse).isEqualTo(expcted_loginResponse)
     }
 
-    @Test
-    fun `test login state and return success`() = runTest{
-        //Given
-        val  login = Login(true,1,"name",2)
-        val act_loginResponse :Resource<Login> = Resource.Success(login)
-        coEvery { loginUseCase.invoke("s@s.s","12345678") }.returns(act_loginResponse)
-        //When
-        loginViewModel.onEvent(LoginEvent.OnLoginClick)
-        //Verify
-        assertThat(Resource.Success(login)).isEqualTo(act_loginResponse)
+    @After
+    fun tearDown(){
+        Dispatchers.resetMain()
+        mainThreadSurrogate.close()
     }
+
 }

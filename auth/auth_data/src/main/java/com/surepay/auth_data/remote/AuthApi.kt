@@ -11,12 +11,9 @@ interface AuthApi {
    // @FormUrlEncoded
     @GET("todos/1")
     suspend fun login(
-
-//        @Field("email") email: String,
-//        @Field("password") password: String
     ): LoginData
 
     companion object {
-        const val BASE_URL = "https://jsonplaceholder.typicode.com/"
+        const val BASE_URL = "https://FakeUrl.typicode.com/"
     }
 }

@@ -7,8 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.surepay.auth_domain.use_case.LoginUseCase
-import com.surepay.auth_presentation.utils.isEmailNotBlank
-import com.surepay.auth_presentation.utils.isPasswordEmpty
+import com.surepay.auth_domain.validation_exeptions.EmailValidationException
 import com.surepay.core.R
 import com.surepay.core.util.Resource
 import com.surepay.core.util.UiEvent
@@ -48,7 +47,6 @@ class LoginViewModel @Inject constructor(
     fun onEvent(event: LoginEvent){
         when(event){
             is LoginEvent.OnLoginClick -> {
-                if (isEmailNotBlank(email) && isPasswordEmpty(password))
                 executeLogin(email,password)
             }
             LoginEvent.Error -> {}
@@ -64,16 +62,32 @@ class LoginViewModel @Inject constructor(
             )
             when(val result = loginUseCase(email,password)){
                 is Resource.Error -> {
-                    state = state.copy(
-                        isLoading = false,
-                        error = UiText.StringResource(R.string.error_something_went_wrong)
-                    )
-                    _uiEvent.send(
-
-                        UiEvent.showErrorMessagge(
-                            UiText.StringResource(R.string.error_something_went_wrong)
+                    if (result.error is EmailValidationException.InvalidEmail){
+                        state = state.copy(
+                            isLoading = false,
+                            error = UiText.StringResource(R.string.not_valid_email)
                         )
-                    )
+                        _uiEvent.send(
+
+                            UiEvent.showErrorMessagge(
+                                UiText.StringResource(R.string.not_valid_email)
+                            )
+                        )
+                    }
+
+                    if (result.error is EmailValidationException.EmptyEmail){
+                        state = state.copy(
+                            isLoading = false,
+                            error = UiText.StringResource(R.string.email_password_error)
+                        )
+                        _uiEvent.send(
+
+                            UiEvent.showErrorMessagge(
+                                UiText.StringResource(R.string.email_password_error)
+                            )
+                        )
+                    }
+
                     Log.d("APIA",result.toString())
                 }
                 is Resource.Success -> {

@@ -1,8 +1,10 @@
 package com.surepay.auth_data.di
 
 import com.surepay.auth_data.BuildConfig
+import com.surepay.core.domain.qualifier.TestQualifier
 import com.surepay.auth_data.remote.AuthApi
 import com.surepay.auth_data.repository.AuthRepositoryImpl
+import com.surepay.auth_data.repository.TestAuthRepositoryImpl
 import com.surepay.auth_domain.repositpry.AuthRepository
 import dagger.Module
 import dagger.Provides
@@ -33,7 +35,7 @@ object AuthModule {
 
     @Provides
     @Singleton
-    fun provideOpenFoodApi(client: OkHttpClient): AuthApi {
+    fun provideAuthApi(client: OkHttpClient): AuthApi {
         return Retrofit.Builder()
             .baseUrl(AuthApi.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
@@ -45,7 +47,7 @@ object AuthModule {
 
     @Provides
     @Singleton
-    fun provideTrackerRepository(
+    fun provideAuthRepository(
         authApi: AuthApi
     ): AuthRepository {
         return AuthRepositoryImpl(
@@ -53,4 +55,14 @@ object AuthModule {
         )
     }
 
+    @TestQualifier
+    @Provides
+    @Singleton
+    fun provideTestAuthRepository(
+        authApi: AuthApi
+    ): AuthRepository {
+        return TestAuthRepositoryImpl(
+            authApi = authApi
+        )
+    }
 }

@@ -2,7 +2,7 @@ package com.surepay.auth_domain.model
 
 import com.surepay.core.util.UiText
 
-class Login(
+class Login     (
     val completed: Boolean,
     val id: Int,
     val title: String,
