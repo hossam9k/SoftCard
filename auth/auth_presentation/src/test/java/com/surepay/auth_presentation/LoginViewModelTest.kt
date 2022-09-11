@@ -36,15 +36,14 @@ class LoginViewModelTest {
 
     private lateinit var loginViewModel : LoginViewModel
 
-    private lateinit var state : LoginState
+    //private lateinit var state : LoginState
 
     @Before
     fun setup(){
         Dispatchers.setMain(mainThreadSurrogate)
-        MockKAnnotations.init(this)
         loginUseCase = mockk()
         loginViewModel = LoginViewModel(loginUseCase)
-        state = loginViewModel.state
+       // state = loginViewModel.state
 
     }
 
@@ -67,7 +66,6 @@ class LoginViewModelTest {
         val actual_loginResponse :Resource<Login> = Resource.Success(login)
 
         assertThat(actual_loginResponse).isEqualTo(expcted_loginResponse)
-
     }
 
     @Test
@@ -85,7 +83,6 @@ class LoginViewModelTest {
 
     @Test
     fun `test login state and return success`() = runTest{
-
         //Given
         val  login = Login(true,1,"name",2)
         val act_loginResponse :Resource<Login> = Resource.Success(login)
