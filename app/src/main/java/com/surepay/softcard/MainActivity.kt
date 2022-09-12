@@ -1,7 +1,6 @@
 package com.surepay.softcard
 
 import android.annotation.SuppressLint
-import androidx.navigation.compose.NavHost
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,11 +9,12 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.surepay.auth_presentation.login.LoginScreen
-import com.surepay.softcard.navigation.Route
 import com.surepay.core_ui.theme.SoftCardTheme
+import com.surepay.softcard.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalComposeUiApi

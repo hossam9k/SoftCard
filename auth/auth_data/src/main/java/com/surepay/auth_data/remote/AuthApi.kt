@@ -1,10 +1,7 @@
 package com.surepay.auth_data.remote
 
 import com.surepay.auth_data.remote.entity.LoginData
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
-import retrofit2.http.POST
 
 interface AuthApi {
 

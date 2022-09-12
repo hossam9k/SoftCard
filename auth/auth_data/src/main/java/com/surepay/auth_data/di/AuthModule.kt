@@ -1,11 +1,11 @@
 package com.surepay.auth_data.di
 
 import com.surepay.auth_data.BuildConfig
-import com.surepay.core.domain.qualifier.TestQualifier
 import com.surepay.auth_data.remote.AuthApi
 import com.surepay.auth_data.repository.AuthRepositoryImpl
 import com.surepay.auth_data.repository.TestAuthRepositoryImpl
 import com.surepay.auth_domain.repositpry.AuthRepository
+import com.surepay.core.domain.qualifier.TestQualifier
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

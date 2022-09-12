@@ -1,13 +1,12 @@
 package com.surepay.auth_presentation.login
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.surepay.auth_domain.use_case.LoginUseCase
 import com.surepay.auth_domain.exeptions.EmailValidationException
+import com.surepay.auth_domain.use_case.LoginUseCase
 import com.surepay.core.R
 import com.surepay.core.util.Resource
 import com.surepay.core.util.UiEvent
@@ -21,10 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
-): ViewModel(){
+) : ViewModel() {
 
     var state by mutableStateOf(LoginState())
-    private set
+        private set
 
     var email by mutableStateOf("")
         private set
@@ -36,33 +35,33 @@ class LoginViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
 
-    fun onEmailEnter(email:String){
-            this.email = email
+    fun onEmailEnter(email: String) {
+        this.email = email
     }
 
-    fun onPasswordEnter(password: String){
-            this.password = password
+    fun onPasswordEnter(password: String) {
+        this.password = password
     }
 
-    fun onEvent(event: LoginEvent){
-        when(event){
+    fun onEvent(event: LoginEvent) {
+        when (event) {
             is LoginEvent.OnLoginClick -> {
-                executeLogin(email,password)
+                executeLogin(email, password)
             }
             LoginEvent.Error -> {}
         }
 
     }
 
-      private fun executeLogin(email: String, password: String){
+    private fun executeLogin(email: String, password: String) {
         viewModelScope.launch {
             state = state.copy(
                 isLoading = true,
                 error = null
             )
-            when(val result = loginUseCase(email,password)){
+            when (val result = loginUseCase(email, password)) {
                 is Resource.Error<*> -> {
-                    if (result.error is EmailValidationException.InvalidEmail){
+                    if (result.error is EmailValidationException.InvalidEmail) {
                         state = state.copy(
                             isLoading = false,
                             error = UiText.StringResource(R.string.not_valid_email)
@@ -75,7 +74,7 @@ class LoginViewModel @Inject constructor(
                         )
                     }
 
-                    if (result.error is EmailValidationException.EmptyEmail){
+                    if (result.error is EmailValidationException.EmptyEmail) {
                         state = state.copy(
                             isLoading = false,
                             error = UiText.StringResource(R.string.email_password_error)
@@ -88,7 +87,6 @@ class LoginViewModel @Inject constructor(
                         )
                     }
 
-                    Log.d("APIA",result.toString())
                 }
                 is Resource.Success -> {
                     state = state.copy(
@@ -96,7 +94,6 @@ class LoginViewModel @Inject constructor(
                         isLoading = false,
                         error = null
                     )
-                    Log.d("APIA",result.toString())
                     _uiEvent.send(UiEvent.Success)
                 }
             }

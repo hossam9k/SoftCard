@@ -1,9 +1,9 @@
 package com.surepay.auth_domain.use_case
 
 import com.google.common.truth.Truth.assertThat
+import com.surepay.auth_domain.exeptions.EmailValidationException
 import com.surepay.auth_domain.model.Login
 import com.surepay.auth_domain.repositpry.AuthRepository
-import com.surepay.auth_domain.exeptions.EmailValidationException
 import com.surepay.core.util.Resource
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
