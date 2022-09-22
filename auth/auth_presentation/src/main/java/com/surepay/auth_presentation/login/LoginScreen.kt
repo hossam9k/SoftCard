@@ -12,6 +12,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.surepay.core.R
@@ -55,7 +56,7 @@ fun LoginScreen(
                     )
                 }
                 is UiEvent.Success -> {
-                   // navigateToCardsScreen()
+                    navigateToCardsScreen()
                 }
                 else -> Unit
             }

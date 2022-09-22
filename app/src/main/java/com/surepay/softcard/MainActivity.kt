@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.surepay.auth_presentation.login.LoginScreen
+import com.surepay.cards_presentation.CardsScreen
 import com.surepay.core_ui.theme.SoftCardTheme
 import com.surepay.softcard.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +52,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Route.CARDS){
+                            CardsScreen()
                         }
                     }
                 }

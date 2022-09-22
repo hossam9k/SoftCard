@@ -50,6 +50,10 @@ dependencies {
     implementation Compose.viewModelCompose
     implementation Compose.activityCompose
 
+    implementation Compose.accompanistPager
+    implementation Compose.accompanistPagerIndicator
+    implementation Compose.utilCompose
+
     kapt DaggerHilt.hiltCompiler
     implementation DaggerHilt.hiltAndroid
 

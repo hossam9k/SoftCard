@@ -69,6 +69,10 @@ dependencies {
     implementation(project(Modules.authDomain))
     implementation(project(Modules.authData))
 
+    implementation(project(Modules.cardsDomain))
+    implementation(project(Modules.cardsData))
+    implementation(project(Modules.cardsPresentation))
+
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.appCompat)
 
