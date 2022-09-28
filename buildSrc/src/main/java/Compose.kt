@@ -8,6 +8,9 @@ object Compose {
     const val runtime = "androidx.compose.runtime:runtime:$composeVersion"
     const val compiler = "androidx.compose.compiler:compiler:$composeCompilerVersion"
 
+    const val materialIconsExtended = "androidx.compose.material:material-icons-extended:$composeVersion"
+
+
     private const val navigationVersion = "2.5.1"
     const val navigation = "androidx.navigation:navigation-compose:$navigationVersion"
 
@@ -21,10 +24,12 @@ object Compose {
     const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
 
     // Paging Compose
-    private const val  accompanistPagerVersion ="0.13.0"
+    private const val  accompanistPagerVersion ="0.23.1"
     const val accompanistPager =  "com.google.accompanist:accompanist-pager:$accompanistPagerVersion"
     const val accompanistPagerIndicator= "com.google.accompanist:accompanist-pager-indicators:$accompanistPagerVersion"
 
     const val utilCompose = "androidx.compose.ui:ui-util:$composeVersion"
+
+
 
 }

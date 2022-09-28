@@ -17,8 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import com.google.accompanist.pager.HorizontalPager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,12 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
-import androidx.compose.ui.viewinterop.AndroidView
 import com.google.accompanist.pager.*
-import com.surepay.core_ui.Orange
 import com.surepay.core_ui.theme.SoftCardTheme
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.yield
 import kotlin.math.absoluteValue
 
 @ExperimentalComposeUiApi
@@ -40,7 +38,7 @@ import kotlin.math.absoluteValue
 fun CardsScreen(){
 
     val pagerState  = rememberPagerState(
-        pageCount = pagerList.size,
+        //pageCount = pagerList.size,
         initialPage =  0
     )
 
@@ -55,7 +53,11 @@ fun CardsScreen(){
 //        }
 //    }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column( modifier = Modifier
+        .fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
 //        Column(modifier = Modifier
 //            .height(50.dp)
 //            .fillMaxWidth()
@@ -71,11 +73,16 @@ fun CardsScreen(){
 //
 //        }
 
-        Spacer(modifier = Modifier.height(30.dp))
-        HorizontalPager(state = pagerState,
+        Spacer(modifier = Modifier.height(100.dp))
+        HorizontalPager(
+            count = pagerList.size,
+            state = pagerState,
+            // the more you increae the end padding the more
+            // content of your other page will show
+            // Add 32.dp horizontal padding to 'center' the pages
+            contentPadding = PaddingValues(start = 65.dp,end = 65.dp),
             modifier = Modifier
-                .weight(1f)
-                .padding(0.dp, 40.dp, 0.dp, 400.dp)
+                .fillMaxWidth()
         ) { page ->
             Card(modifier = Modifier
                 .graphicsLayer {
@@ -97,60 +104,77 @@ fun CardsScreen(){
                     )
 
                 }
-                .fillMaxWidth()
-                .padding(25.dp, 0.dp, 25.dp, 0.dp),
-                shape = RoundedCornerShape(20.dp)
+                .aspectRatio(1.5f),
+                backgroundColor = Color.Transparent,
+                shape = RoundedCornerShape(15.dp),
+                elevation = 10.dp
             ) {
 
                 val newModels = pagerList[page]
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Color.LightGray)
-                        .align(Alignment.Center)
+                        .background(newModels.cardBackgroundColor)
+                       // .align(Alignment.Center)
                 ) {
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(newModels.cardBackgroundColor)
+                        // .align(Alignment.Center)
+                    )
                     Image(
                         painter = painterResource(
-                            id = newModels.imgUri
+                            id = newModels.cardLogo,
                         ),
-                        contentDescription = "Image",
+                                contentDescription = "Image",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
                     )
 
                     Column(
                         modifier = Modifier
-                            .align(Alignment.TopStart)
-                            .padding(15.dp)
+                            .align(Alignment.Center)
+                            .padding(15.dp, top = 50.dp)
                     ) {
 
                         Text(
-                            text = newModels.title,
-                            style = MaterialTheme.typography.h5,
+                            text = newModels.cardNumber,
+                            style = MaterialTheme.typography.h6,
                             color = Color.White,
                             fontWeight = FontWeight.Bold
                         )
-                        val ratingBar = RatingBar(
-                            LocalContext.current, null, android.R.attr.ratingBarStyleSmall
-                        ).apply {
-                            rating = newModels.rating
-                            progressDrawable.setColorFilter(
-                                android.graphics.Color.parseColor("#FF0000"),
-                                PorterDuff.Mode.SRC_ATOP
-                            )
-                        }
+
 
 //                        AndroidView(
 //                            factory = { ratingBar },
 //                            modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp)
 //                        )
-                        Text(
-                            text = newModels.desc,
-                            style = MaterialTheme.typography.body1,
-                            color = Color.White,
-                            fontWeight = FontWeight.Normal,
-                            modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp)
-                        )
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = newModels.cardExpirationDate,
+                                style = MaterialTheme.typography.body1,
+                                color = Color.White,
+                                fontWeight = FontWeight.Normal,
+                                modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp)
+                                    .weight(1f)
+
+                            )
+
+                            Text(
+                                text = newModels.cardHolderName,
+                                style = MaterialTheme.typography.body1,
+                                color = Color.White,
+                                fontWeight = FontWeight.Normal,
+                                modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp)
+                                    .weight(1f)
+                            )
+                        }
+
 
 
                     }

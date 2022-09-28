@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import com.surepay.core_ui.LocalSpacing
 
@@ -18,7 +19,11 @@ fun UnitTextField(
     onValueChange: (String) -> Unit,
 //    unit: String,
     label: @Composable (() -> Unit)? = null,
+    leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     modifier: Modifier = Modifier,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     textStyle: TextStyle = TextStyle(
         color = MaterialTheme.colors.primaryVariant,
         fontSize = 14.sp
@@ -34,9 +39,10 @@ fun UnitTextField(
             onValueChange = onValueChange,
             textStyle = textStyle,
             label = label,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
-            ),
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )

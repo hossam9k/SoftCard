@@ -1,12 +1,16 @@
 package com.surepay.cards_presentation
 
+import androidx.compose.ui.graphics.Color
+
 
 data class PagerModel(
 
-    val title :String,
-    val rating : Float,
-    val desc :String,
-    val imgUri:Int
+    val cardHolderName :String,
+    val cardExpirationDate : String,
+    val cardNumber :String,
+    val cardLogo:Int,
+    val cardBackgroundColor: Color
+
 )
 
 /**
@@ -15,40 +19,46 @@ data class PagerModel(
 
 val pagerList = listOf(
     PagerModel(
-        "Sitting Pretty",
-        4.0f,
-        "All the Children in the word are cute and innocent for like this...",
-        R.drawable.image_6
+        "Hossam Atef",
+        "1/22",
+        "093863363632676",
+        R.drawable.image_6,
+        Color.Red
     ),
     PagerModel(
-        "Love her Expression",
-        4.0f,
-        "All the Children in the word are cute and innocent for like this...",
-        R.drawable.image_6
+        "Hossam Atef",
+        "1/22",
+        "093863363632676",
+        R.drawable.image_6,
+        Color.Magenta
     ),
     PagerModel(
-        "Childhood Superman",
-        4.0f,
-        "All the Children in the word are cute and innocent for like this...",
-        R.drawable.image_6
+        "Hossam Atef",
+        "1/22",
+        "093863363632676",
+        R.drawable.image_6,
+        Color.Yellow
     ),
     PagerModel(
-        "Candle Night At Marina",
-        4.0f,
-        "All the Children in the word are cute and innocent for like this...",
-        R.drawable.image_6
+        "Hossam Atef",
+        "1/22",
+        "093863363632676",
+        R.drawable.image_6,
+        Color.Green
     ),
     PagerModel(
-        "Girl with Beautiful smile",
-        4.0f,
-        "All the Children in the word are cute and innocent for like this...",
-        R.drawable.image_6
+        "Hossam Atef",
+        "1/22",
+        "093863363632676",
+        R.drawable.image_6,
+        Color.Black
     ),
     PagerModel(
-        "Bath Time",
-        4.0f,
-        "All the Children in the word are cute and innocent for like this...",
-        R.drawable.image_6
+        "Hossam Atef",
+        "1/22",
+        "093863363632676",
+        R.drawable.image_6,
+        Color.Blue
     )
 
 )
