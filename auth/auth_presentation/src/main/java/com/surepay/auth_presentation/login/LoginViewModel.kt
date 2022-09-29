@@ -31,12 +31,19 @@ class LoginViewModel @Inject constructor(
     var password by mutableStateOf("")
         private set
 
+    var passwordVisibility by mutableStateOf(false)
+        private set
+
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
 
     fun onEmailEnter(email: String) {
         this.email = email
+    }
+
+    fun isPasswordVisible(passwordVisibility: Boolean) {
+        this.passwordVisibility = passwordVisibility
     }
 
     fun onPasswordEnter(password: String) {

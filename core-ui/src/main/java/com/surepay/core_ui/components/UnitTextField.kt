@@ -1,6 +1,7 @@
 package com.surepay.core_ui.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -24,6 +25,7 @@ fun UnitTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
     textStyle: TextStyle = TextStyle(
         color = MaterialTheme.colors.primaryVariant,
         fontSize = 14.sp
@@ -43,6 +45,7 @@ fun UnitTextField(
             trailingIcon = trailingIcon,
             visualTransformation = visualTransformation,
             keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )

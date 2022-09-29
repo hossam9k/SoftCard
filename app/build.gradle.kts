@@ -59,6 +59,7 @@ dependencies {
     implementation(Compose.navigation)
     implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
+    implementation(Compose.activityKTXCompose)
 
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)
@@ -121,6 +122,8 @@ dependencies {
     implementation(Compose.navigation)
     implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
+    implementation(Compose.activityKTXCompose)
+
 
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)

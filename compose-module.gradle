@@ -49,6 +49,8 @@ dependencies {
     implementation Compose.navigation
     implementation Compose.viewModelCompose
     implementation Compose.activityCompose
+    implementation  Compose.activityKTXCompose
+
     implementation Compose.materialIconsExtended
 
     implementation Compose.accompanistPager

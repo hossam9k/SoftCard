@@ -4,6 +4,7 @@ package com.surepay.auth_presentation.login
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,13 +16,17 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,9 +47,6 @@ fun LoginScreen(
 ){
     val state = loginViewModel.state
     val context = LocalContext.current
-
-
-
 
     LaunchedEffect(key1 = true) {
 //        state.login?.let {
@@ -84,14 +86,14 @@ fun WelcomeText(){
         fontSize = 25.sp,
         style = MaterialTheme.typography.h5,
         fontWeight= FontWeight.Bold,
-        modifier = Modifier.padding(top = 200.dp),
+        //modifier = Modifier.padding(top = 200.dp),
 
     )
 }
 
 @Composable
 fun LoginBGImage(){
-    Image(painter = painterResource(id = com.surepay.auth_presentation.R.drawable.image_6), contentDescription = "bg",
+    Image(painter = painterResource(id = com.surepay.auth_presentation.R.drawable.citi), contentDescription = "logo",
         modifier = Modifier.fillMaxSize())
 }
 
@@ -100,14 +102,14 @@ fun LoginHeader(){
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
-            .background(Color.Transparent)
+            .height(200.dp)
+            .background(Color.Blue)
     ) {
         LoginBGImage()
 
         Column(
             modifier = Modifier
-                .align(Alignment.TopStart)
+                .align(Alignment.BottomStart)
                 .padding(15.dp)
         ) {
 
@@ -142,51 +144,24 @@ fun LoginBody(
             // modifier = Modifier.fillMaxSize(),verticalArrangement = Arrangement.Top
         ) {
 
-            var showPassword: Boolean by remember { mutableStateOf(false) }
 
 
-            UnitTextField(
-                label = { Text(text =stringResource(id = R.string.email_hint)) },
-                value = loginViewModel.email,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                onValueChange =
-                loginViewModel::onEmailEnter
-                ,
-
-                )
-            Spacer(modifier = Modifier.height(spacing.spaceExtraLarge))
-            UnitTextField(
-                label = { Text(text = stringResource(id = R.string.password_hint)) },
-                value = loginViewModel.password,
-                visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                trailingIcon = {
-                    IconButton(onClick = {
-                        showPassword = !showPassword
-                    }) {
-                        Icon(
-                            imageVector = if (showPassword)
-                                Icons.Filled.Visibility
-                            else
-                                Icons.Filled.VisibilityOff, ""
-                        )
-                    }
-                },
-                onValueChange = loginViewModel::onPasswordEnter,
-            )
-            Spacer(modifier = Modifier.height(spacing.spaceLarge))
-
-            ActionButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(spacing.spaceMedium)
-                    .align(Alignment.CenterHorizontally),
-                text = stringResource(id = R.string.login),
-                onClick = { loginViewModel.onEvent(LoginEvent.OnLoginClick) },
-            )
+            EmailTextField(loginViewModel = loginViewModel)
+            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            PasswordEditText(loginViewModel)
+            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            LoginButton{
+                loginViewModel.onEvent(LoginEvent.OnLoginClick)
+            }
         }
         }
 
+
+    ProgressIndicator(state = state)
+}
+
+@Composable
+fun ProgressIndicator(state: LoginState){
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -196,6 +171,71 @@ fun LoginBody(
 
         }
     }
+}
+
+@Composable
+fun EmailTextField(loginViewModel: LoginViewModel){
+    UnitTextField(
+        label = { Text(text =stringResource(id = R.string.email_hint)) },
+        value = loginViewModel.email,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
+//                keyboardActions = KeyboardActions(
+//                    onNext = {
+//
+//                    }
+//                ),
+        onValueChange =
+        loginViewModel::onEmailEnter,
+
+        )
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun PasswordEditText(loginViewModel: LoginViewModel){
+    val keyboard = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
+
+    UnitTextField(
+        label = { Text(text = stringResource(id = R.string.password_hint)) },
+        value = loginViewModel.password,
+        visualTransformation = if (loginViewModel.passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                focusManager.clearFocus()
+                keyboard?.hide()
+            }
+        ),
+        trailingIcon = {
+            IconButton(onClick = {
+                if (loginViewModel.passwordVisibility)
+               loginViewModel.isPasswordVisible(false)
+                else
+                    loginViewModel.isPasswordVisible(true)
+            }) {
+                Icon(
+                    imageVector = if (loginViewModel.passwordVisibility)
+                        Icons.Filled.Visibility
+                    else
+                        Icons.Filled.VisibilityOff, ""
+                )
+            }
+        },
+        onValueChange = loginViewModel::onPasswordEnter,
+    )
+}
+
+@Composable
+fun LoginButton(spacing :Dp= LocalSpacing.current.spaceMedium,onLoginClicked :()-> Unit){
+    ActionButton(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(spacing),
+            //.align(Alignment.CenterHorizontally),
+        text = stringResource(id = R.string.login),
+        onClick = onLoginClicked ,
+    )
 }
 
 @ExperimentalComposeUiApi
