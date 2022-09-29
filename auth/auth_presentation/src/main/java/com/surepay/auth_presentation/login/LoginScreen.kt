@@ -37,13 +37,14 @@ import com.surepay.core_ui.LocalSpacing
 import com.surepay.core_ui.components.ActionButton
 import com.surepay.core_ui.components.UnitTextField
 import com.surepay.core_ui.theme.SoftCardTheme
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @ExperimentalComposeUiApi
 @Composable
 fun LoginScreen(
+    loginViewModel: LoginViewModel = hiltViewModel(),
     scaffoldState: ScaffoldState,
-    navigateToCardsScreen: () -> Unit,
-    loginViewModel: LoginViewModel = hiltViewModel()
+    navigateToCardsScreen: () -> Unit
 ){
     val state = loginViewModel.state
     val context = LocalContext.current
@@ -148,7 +149,7 @@ fun LoginBody(
 
             EmailTextField(loginViewModel = loginViewModel)
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
-            PasswordEditText(loginViewModel)
+            PasswordTextField(loginViewModel)
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             LoginButton{
                 loginViewModel.onEvent(LoginEvent.OnLoginClick)
@@ -192,7 +193,7 @@ fun EmailTextField(loginViewModel: LoginViewModel){
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun PasswordEditText(loginViewModel: LoginViewModel){
+fun PasswordTextField(loginViewModel: LoginViewModel){
     val keyboard = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
@@ -241,10 +242,10 @@ fun LoginButton(spacing :Dp= LocalSpacing.current.spaceMedium,onLoginClicked :()
 @ExperimentalComposeUiApi
 @Preview
 @Composable
-fun PreviewLoginScreen(loginViewModel: LoginViewModel = hiltViewModel(),state : LoginState = LoginState()){
+fun PreviewLoginScreen(state : LoginState = LoginState()){
     SoftCardTheme(darkTheme = false){
         Scaffold {
-            LoginBody(loginViewModel,state)
+            LoginBody(hiltViewModel(),state)
         }
 
 
