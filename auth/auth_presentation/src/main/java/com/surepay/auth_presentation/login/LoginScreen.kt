@@ -228,9 +228,9 @@ fun PasswordTextField(loginViewModel: LoginViewModel){
 }
 
 @Composable
-fun LoginButton(spacing :Dp= LocalSpacing.current.spaceMedium,onLoginClicked :()-> Unit){
+fun LoginButton(modifier: Modifier = Modifier,spacing :Dp= LocalSpacing.current.spaceMedium,onLoginClicked :()-> Unit){
     ActionButton(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(spacing),
             //.align(Alignment.CenterHorizontally),

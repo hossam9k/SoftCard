@@ -3,7 +3,7 @@ package com.surepay.cards_presentation
 import androidx.compose.ui.graphics.Color
 
 
-data class PagerModel(
+data class CardModel(
 
     val cardHolderName :String,
     val cardExpirationDate : String,
@@ -18,44 +18,44 @@ data class PagerModel(
  * */
 
 val pagerList = listOf(
-    PagerModel(
+    CardModel(
         "Hossam Atef",
-        "1/22",
+        "122",
         "093863363632676",
         R.drawable.image_6,
         Color.Red
     ),
-    PagerModel(
-        "Hossam Atef",
-        "1/22",
+    CardModel(
+        "Hossam sfsdfcs",
+        "122",
         "093863363632676",
         R.drawable.image_6,
         Color.Magenta
     ),
-    PagerModel(
+    CardModel(
         "Hossam Atef",
-        "1/22",
+        "122",
         "093863363632676",
         R.drawable.image_6,
-        Color.Yellow
+        Color.Cyan
     ),
-    PagerModel(
+    CardModel(
         "Hossam Atef",
-        "1/22",
+        "122",
         "093863363632676",
         R.drawable.image_6,
         Color.Green
     ),
-    PagerModel(
+    CardModel(
         "Hossam Atef",
-        "1/22",
+        "122",
         "093863363632676",
         R.drawable.image_6,
         Color.Black
     ),
-    PagerModel(
+    CardModel(
         "Hossam Atef",
-        "1/22",
+        "122",
         "093863363632676",
         R.drawable.image_6,
         Color.Blue
