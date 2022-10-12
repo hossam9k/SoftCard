@@ -7,5 +7,7 @@ dependencies {
     "implementation"(project(Modules.coreUi))
     "implementation"(project(Modules.cardsDomain))
 
-    "implementation"(Coil.coilCompose)
+    //"implementation"(Coil.coilCompose)
+
+    "implementation"(AndroidX.biometric)
 }

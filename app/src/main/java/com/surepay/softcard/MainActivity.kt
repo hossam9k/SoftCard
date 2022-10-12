@@ -17,7 +17,7 @@ import androidx.navigation.navArgument
 import com.surepay.auth_presentation.login.LoginScreen
 import com.surepay.cards_presentation.card_details.CardDetailsScreen
 import com.surepay.cards_presentation.CardsScreen
-import com.surepay.cards_presentation.pincode.PinCodeScreen
+import com.surepay.cards_presentation.pincode.PinScreen
 import com.surepay.core_ui.theme.SoftCardTheme
 import com.surepay.softcard.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
@@ -98,6 +98,7 @@ class MainActivity : ComponentActivity() {
                                 cardLogo = cardLogo,
                                 onNavigateUp = {
                                     navController.navigateUp()
+
                                 },
                                 onNavigatePinCode = {
                                     navController.navigate(Route.PIN_CODE)
@@ -106,11 +107,13 @@ class MainActivity : ComponentActivity() {
 
                         }
                         composable(Route.PIN_CODE) {
-                            PinCodeScreen(
+                            PinScreen(
                                 scaffoldState = scaffoldState,
                                 onNavigateUp = {
                                     navController.navigateUp()
-                                }
+                                },
+
+                               // pinCallbacks = noOpPinCallbacks,
                             )
                         }
                     }

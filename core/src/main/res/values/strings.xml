@@ -11,6 +11,12 @@
     <string name="email_password_error">Email or Password Empty</string>
     //card details
     <string name="proceed">Proceed</string>
+    //Pin
+    <string name="pin">Pin</string>
+    <string name="content_desc_toggle_password_visibility">Toggle password visibility</string>
+    <string name="pin_biometric_prompt_description">Log in using your biometric credential</string>
+    <string name="pin_biometric_error">Authentication failed: %1$s</string>
+    <string name="pin_biometric_authentication_error">Authentication failed</string>
 
 
 </resources>
