@@ -85,11 +85,11 @@ fun PinBody(
 
         Spacer(modifier = Modifier.height(spacing.spaceExtraLarge))
 
-        GreetingText(greetingText = "Hello, There")
+        HeaderText(headerText = "Hello, There")
 
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
-        EnterPinCodeText(text = "Enter here")
+        SubHeaderText(text = "Enter here")
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -97,22 +97,22 @@ fun PinBody(
 
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
-        MyRow(
+        PinRow(
             listOf("7", "8", "9"),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
-        MyRow(
+        PinRow(
             listOf("4", "5", "6"),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
-        MyRow(
+        PinRow(
             listOf("1", "2", "3"),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
-        MyRow(
+        PinRow(
             listOf("Face", "0", "Delete"),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
@@ -121,14 +121,14 @@ fun PinBody(
 }
 
 @Composable
-fun MyRow(
+fun PinRow(
     texts: List<String>,
     weights: List<Float>,
     pinViewModel: PinViewModel
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
         for (i in texts.indices) {
-            MyButton(
+            PinButton(
                 text = texts[i],
                 modifier = Modifier.weight(weights[i]),
 
@@ -145,7 +145,7 @@ fun MyRow(
 
 
 @Composable
-fun MyButton(
+fun PinButton(
     text: String,
     modifier: Modifier = Modifier,
     onClick: (text:String)-> Unit
@@ -167,9 +167,9 @@ fun MyButton(
 }
 
 @Composable
-fun GreetingText(greetingText: String){
+fun HeaderText(headerText: String){
     Text(
-        text = greetingText,
+        text = headerText,
         style = MaterialTheme.typography.h6,
         color = Color.Black,
         fontWeight = FontWeight.Bold
@@ -177,7 +177,7 @@ fun GreetingText(greetingText: String){
 }
 
 @Composable
-fun EnterPinCodeText(text: String){
+fun SubHeaderText(text: String){
     Text(
         text = text,
         style = MaterialTheme.typography.h6,
