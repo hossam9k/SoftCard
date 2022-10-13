@@ -3,12 +3,9 @@ package com.surepay.cards_presentation
 import android.util.Log
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,9 +32,9 @@ import kotlin.math.absoluteValue
 @Composable
 fun CardsScreen(
     scaffoldState: ScaffoldState,
-    onNavigateCardDetails:  (String, String, String, Int) -> Unit,
+    onNavigateCardDetails: (String, String, String, Int) -> Unit,
 
-) {
+    ) {
 
     val spacing: Dimensions = LocalSpacing.current
 
@@ -46,15 +43,16 @@ fun CardsScreen(
         initialPage = 0
     )
 //        ReplaceWith("animateScrollToPage(page = page, pageOffset = pageOffset)")
-    LaunchedEffect(Unit){
-        while (true){
+    LaunchedEffect(Unit) {
+        while (true) {
             yield()
             delay(2000)
+            tween<Float>(
+                600,
+                easing = LinearOutSlowInEasing
+            )
             pagerState.animateScrollToPage(
-                page = (pagerState.currentPage + 1) % (pagerState.pageCount),
-                animationSpec = tween(600,
-                    easing = LinearOutSlowInEasing
-                ),
+                page = (pagerState.currentPage + 1) % (pagerState.pageCount)
             )
         }
     }
@@ -91,47 +89,47 @@ fun CardsScreen(
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun VerticalPager(pagerState: PagerState, onClick: (model:CardModel)-> Unit){
+fun VerticalPager(pagerState: PagerState, onClick: (model: CardModel) -> Unit) {
     VerticalPager(
         count = pagerList.size,
         state = pagerState,
         contentPadding = PaddingValues(top = 40.dp, bottom = 40.dp),
         modifier = Modifier
-            .verticalScroll(rememberScrollState())
+            .horizontalScroll(rememberScrollState())
             .fillMaxWidth()
             .height(210.dp),
     ) { page ->
-        Log.d("pageIndex",page.toString())
         val cardModel = pagerList[page]
 
-        Card(modifier = Modifier
-            .graphicsLayer {
-                val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
+        Card(
+            modifier = Modifier
+                .graphicsLayer {
+                    val pageOffset = calculateCurrentOffsetForPage(page).absoluteValue
 
-                lerp(
-                    start = 0.85f,
-                    stop = 1f,
-                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                ).also { scale ->
-                    scaleX = scale
-                    scaleY = scale
+                    lerp(
+                        start = 0.85f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    ).also { scale ->
+                        scaleX = scale
+                        scaleY = scale
+
+                    }
+                    alpha = lerp(
+                        start = 0.5f,
+                        stop = 1f,
+                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                    )
 
                 }
-                alpha = lerp(
-                    start = 0.5f,
-                    stop = 1f,
-                    fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                )
-
-            }
-            .aspectRatio(2.3f),
+                .aspectRatio(2.3f),
             backgroundColor = Color.Transparent,
             shape = RoundedCornerShape(15.dp),
             elevation = 10.dp,
             onClick = {
                 onClick(cardModel)
-            } ,
-               // onNavigateCardDetails(cardModel)
+            },
+            // onNavigateCardDetails(cardModel)
 
         ) {
 
@@ -158,8 +156,8 @@ fun VerticalPager(pagerState: PagerState, onClick: (model:CardModel)-> Unit){
                         modifier = Modifier
                             .fillMaxWidth()
                     ) {
-                        CardExpirationDate(cardModel,Modifier.weight(1f))
-                        CardHolderName(cardModel,Modifier.weight(1f))
+                        CardExpirationDate(cardModel, Modifier.weight(1f))
+                        CardHolderName(cardModel, Modifier.weight(1f))
                     }
 
 
@@ -172,7 +170,7 @@ fun VerticalPager(pagerState: PagerState, onClick: (model:CardModel)-> Unit){
 }
 
 @Composable
-fun CardBackgroundImage(pagerModel: CardModel){
+fun CardBackgroundImage(pagerModel: CardModel) {
     Image(
         painter = painterResource(
             id = pagerModel.cardLogo,
@@ -184,7 +182,7 @@ fun CardBackgroundImage(pagerModel: CardModel){
 }
 
 @Composable
-fun CardNumberText(pagerModel: CardModel){
+fun CardNumberText(pagerModel: CardModel) {
     Text(
         text = pagerModel.cardNumber,
         style = MaterialTheme.typography.h6,
@@ -195,8 +193,8 @@ fun CardNumberText(pagerModel: CardModel){
 
 
 @Composable
-fun CardExpirationDate(pagerModel: CardModel,modifier: Modifier = Modifier) {
-     Text(
+fun CardExpirationDate(pagerModel: CardModel, modifier: Modifier = Modifier) {
+    Text(
         text = pagerModel.cardExpirationDate,
         style = MaterialTheme.typography.body1,
         color = Color.White,
@@ -210,7 +208,7 @@ fun CardExpirationDate(pagerModel: CardModel,modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CardHolderName(pagerModel: CardModel,modifier: Modifier = Modifier){
+fun CardHolderName(pagerModel: CardModel, modifier: Modifier = Modifier) {
     Text(
         text = pagerModel.cardHolderName,
         style = MaterialTheme.typography.body1,
