@@ -30,6 +30,11 @@ class PinViewModel @Inject constructor() : ViewModel()  {
         this.pin += pin
     }
 
+    fun onPinDelete(){
+       this.pin = this.pin.dropLast(1)
+        print("DELETE $pin")
+    }
+
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 

@@ -1,28 +1,27 @@
 package com.surepay.cards_presentation.pincode
 
 import android.util.Log
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.border
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.FragmentActivity
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.surepay.cards_presentation.R
 import com.surepay.core.util.UiEvent
 import com.surepay.core_ui.Dimensions
 import com.surepay.core_ui.LocalSpacing
 import com.surepay.core_ui.theme.SoftCardTheme
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun PinScreen(
@@ -98,22 +97,22 @@ fun PinBody(
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
         PinRow(
-            listOf("7", "8", "9"),
+            arrayOf(PinPad.SEVEN, PinPad.EIGHT, PinPad.NINE),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
         PinRow(
-            listOf("4", "5", "6"),
+            arrayOf(PinPad.FOUR, PinPad.FIVE, PinPad.SIX),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
         PinRow(
-            listOf("1", "2", "3"),
+            arrayOf(PinPad.ONE, PinPad.TOW, PinPad.THREE),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
         PinRow(
-            listOf("Face", "0", "Delete"),
+            arrayOf(PinPad.FORGOT, PinPad.ZERO, PinPad.BIOMETRIC),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
@@ -122,39 +121,67 @@ fun PinBody(
 
 @Composable
 fun PinRow(
-    texts: List<String>,
+    buttons: Array<PinPad>,
     weights: List<Float>,
     pinViewModel: PinViewModel
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        for (i in texts.indices) {
-            PinButton(
-                text = texts[i],
-                modifier = Modifier.weight(weights[i]),
-
-                onClick ={
-                    if (pinViewModel.pin.length<4){
-                        pinViewModel.onPinEnter(it)
-                    }
-
+        for (i in buttons.indices) {
+            when(buttons[i].value){
+                -2 ->{
+                    PinPadImageButton(
+                        pin =buttons[i] ,
+                        painter = painterResource(R.drawable.ic_remove_24),
+                        modifier = Modifier.weight(weights[i]),
+                        onClick ={
+                            Log.d("buttonIndex", "$it $i ${pinViewModel.pin}")
+                            print("buttonIndex $it $i ${pinViewModel.pin}")
+                            if (pinViewModel.pin.isNotEmpty()){
+                                pinViewModel.onPinDelete()
+                            }
+                        } )
                 }
-            )
+                -3 ->{
+                    PinPadImageButton(
+                        pin =buttons[i],
+                        painter = painterResource(R.drawable.ic_fingerprint_24),
+                        modifier = Modifier.weight(weights[i]),
+                        onClick ={
+                            Log.d("buttonIndex", "$it $i ${pinViewModel.pin}")
+                            print("buttonIndex $it $i ${pinViewModel.pin}")
+                            if (pinViewModel.pin.isNotEmpty()){
+                                pinViewModel.onPinDelete()
+                            }
+                        } )
+                }
+                else->{
+                    PinPadNumberButton(
+                        pin = buttons[i] ,
+                        modifier = Modifier.weight(weights[i]),
+                        onClick ={
+                            if (pinViewModel.pin.length<4){
+                                pinViewModel.onPinEnter(it.toString())
+                            }
+
+                        }
+                    )
+                }
+            }
         }
     }
 }
 
-
 @Composable
-fun PinButton(
-    text: String,
+fun PinPadNumberButton(
+    pin: PinPad,
     modifier: Modifier = Modifier,
-    onClick: (text:String)-> Unit
+    onClick: (text:Int)-> Unit
 ) {
     Button(
         modifier = modifier
             .padding(4.dp),
         onClick = {
-            onClick(text)
+            onClick(pin.value)
 
         },
         elevation = null,
@@ -162,8 +189,28 @@ fun PinButton(
 
     ) {
 
-        Text(text)
+        Text(pin.value.toString())
     }
+}
+
+@Composable
+fun PinPadImageButton(
+    pin: PinPad,
+    modifier: Modifier = Modifier,
+    painter: Painter,
+    onClick: (text:Int)-> Unit
+) {
+
+    Image(
+        modifier = modifier
+            .padding(4.dp)
+            .clickable {
+                onClick(pin.value)
+            },
+        painter = painter,
+        contentDescription = null,
+        contentScale = ContentScale.Fit,
+    )
 }
 
 @Composable
