@@ -12,6 +12,5 @@ enum class PinPad(val value: Int) {
     EIGHT(8),
     NINE(9),
     DELETE(-1),
-    BIOMETRIC(-2),
-    FORGOT(-3)
+    BIOMETRIC(-2)
 }

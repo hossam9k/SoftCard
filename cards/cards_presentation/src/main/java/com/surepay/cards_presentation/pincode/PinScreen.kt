@@ -112,7 +112,7 @@ fun PinBody(
             pinViewModel
         )
         PinRow(
-            arrayOf(PinPad.FORGOT, PinPad.ZERO, PinPad.BIOMETRIC),
+            arrayOf(PinPad.BIOMETRIC, PinPad.ZERO, PinPad.DELETE),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
@@ -127,8 +127,8 @@ fun PinRow(
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
         for (i in buttons.indices) {
-            when(buttons[i].value){
-                -2 ->{
+            when(buttons[i]){
+                PinPad.BIOMETRIC ->{
                     PinPadImageButton(
                         pin =buttons[i] ,
                         painter = painterResource(R.drawable.ic_remove_24),
@@ -141,7 +141,7 @@ fun PinRow(
                             }
                         } )
                 }
-                -3 ->{
+                PinPad.DELETE ->{
                     PinPadImageButton(
                         pin =buttons[i],
                         painter = painterResource(R.drawable.ic_fingerprint_24),
