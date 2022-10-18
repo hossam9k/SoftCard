@@ -251,15 +251,6 @@ fun PinView(modifier: Modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-//            Spacer(modifier = Modifier.height(spacing.MarginStandard))
-//                PasswordTextField(
-//                    value = pinViewModel.pin,
-//                   // onValueChange = pinViewModel::onPinEnter,
-//                    label = { Text(text = stringResource(id = com.surepay.core.R.string.pin)) },
-//                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
-//                    isError = state.pinError,
-//                )
-
             PinDotsTextField(pinViewModel)
 
             Spacer(modifier = Modifier.height(spacing.MarginStandard))
