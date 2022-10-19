@@ -119,6 +119,7 @@ fun PinBody(
     }
 }
 
+
 @Composable
 fun PinRow(
     buttons: Array<PinPad>,
@@ -131,8 +132,8 @@ fun PinRow(
                 PinPad.BIOMETRIC ->{
                     PinPadImageButton(
                         pin =buttons[i] ,
-                        painter = painterResource(R.drawable.ic_remove_24),
-                        modifier = Modifier.weight(weights[i]),
+                        painter = painterResource(R.drawable.ic_remove),
+                        modifier = Modifier.weight(weights[i]).height(50.dp),
                         onClick ={
                             Log.d("buttonIndex", "$it $i ${pinViewModel.pin}")
                             print("buttonIndex $it $i ${pinViewModel.pin}")
@@ -144,8 +145,8 @@ fun PinRow(
                 PinPad.DELETE ->{
                     PinPadImageButton(
                         pin =buttons[i],
-                        painter = painterResource(R.drawable.ic_fingerprint_24),
-                        modifier = Modifier.weight(weights[i]),
+                        painter = painterResource(R.drawable.ic_fingerprint),
+                        modifier = Modifier.weight(weights[i]).height(50.dp),
                         onClick ={
                             Log.d("buttonIndex", "$it $i ${pinViewModel.pin}")
                             print("buttonIndex $it $i ${pinViewModel.pin}")

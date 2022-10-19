@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.surepay.core_ui.theme.SoftCardTheme
 
 @Composable
@@ -31,8 +32,7 @@ fun PinDotsTextField(pinViewModel: PinViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
-            modifier = Modifier
-                .width(
+            modifier = Modifier.width(
                     200.dp,
                 ),
         ) {
@@ -40,8 +40,7 @@ fun PinDotsTextField(pinViewModel: PinViewModel) {
             BasicTextField(
                 value = pinViewModel.pin,
                 enabled = pinViewModel.state.pinEnabled,
-                onValueChange = {
-                },
+                onValueChange = {},
                 singleLine = true,
                 textStyle = TextStyle(
                     color = Transparent,
@@ -100,7 +99,7 @@ fun Dot(
 fun PreviewDots() {
     SoftCardTheme {
         Scaffold {
-            //PinDotsTextField()
+            PinDotsTextField(hiltViewModel())
 
         }
     }
