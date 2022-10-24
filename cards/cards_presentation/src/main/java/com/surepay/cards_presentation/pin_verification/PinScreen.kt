@@ -44,8 +44,6 @@ fun PinScreen(
                 }
                 is UiEvent.Success -> {
                     onNavigatePinVerification()
-
-
                 }
                 else -> Unit
             }
@@ -94,22 +92,22 @@ fun PinBody(
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
         PinRow(
-            arrayOf(PinPad.SEVEN, PinPad.EIGHT, PinPad.NINE),
+            listOf(PinPad.SEVEN, PinPad.EIGHT, PinPad.NINE),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
         PinRow(
-            arrayOf(PinPad.FOUR, PinPad.FIVE, PinPad.SIX),
+            listOf(PinPad.FOUR, PinPad.FIVE, PinPad.SIX),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
         PinRow(
-            arrayOf(PinPad.ONE, PinPad.TOW, PinPad.THREE),
+            listOf(PinPad.ONE, PinPad.TOW, PinPad.THREE),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
         PinRow(
-            arrayOf(PinPad.BIOMETRIC, PinPad.ZERO, PinPad.DELETE),
+            listOf(PinPad.BIOMETRIC, PinPad.ZERO, PinPad.DELETE),
             listOf(0.25f, 0.25f, 0.25f),
             pinViewModel
         )
@@ -119,7 +117,7 @@ fun PinBody(
 
 @Composable
 fun PinRow(
-    buttons: Array<PinPad>,
+    buttons: List<PinPad>,
     weights: List<Float>,
     pinViewModel: PinViewModel
 ) {

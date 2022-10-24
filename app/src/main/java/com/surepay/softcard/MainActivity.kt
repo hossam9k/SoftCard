@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                 ){
                     NavHost(
                         navController = navController,
-                        startDestination = Route.CARDS
+                        startDestination = Route.PIN_CODE
                     ){
                         composable(Route.LOGIN) {
                             LoginScreen(
@@ -49,7 +49,6 @@ class MainActivity : ComponentActivity() {
                             }
                             )
                         }
-
                         composable(Route.CARDS){
                             CardsScreen(
                                 scaffoldState = scaffoldState,

@@ -1,12 +1,14 @@
 package com.surepay.cards_presentation.pin_verification
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -28,14 +30,12 @@ fun PinVerificationScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
-            .fillMaxWidth()
-            .blur(90.dp)
-           // .background(Color.Black.copy(alpha = 0.6f),)
+            .fillMaxSize()
     )
     {
-        Spacer(modifier = Modifier.height(spacing.spaceExtraLarge))
+      //  Spacer(modifier = Modifier.height(spacing.spaceExtraLarge))
 
-        Image(image = R.drawable.ic_check_circle_blue)
+        VerificationImage(image = R.drawable.ic_check_circle_blue)
 
     }
 
@@ -43,7 +43,7 @@ fun PinVerificationScreen(
 
 
 @Composable
-fun Image(image: Int) {
+fun VerificationImage(image: Int) {
     Image(
         painter = painterResource(
             id = image,

@@ -1,5 +1,6 @@
 package com.surepay.cards_presentation.pin_verification
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -38,6 +39,11 @@ class PinViewModel @Inject constructor() : ViewModel()  {
 
     fun onPinDelete(){
        this.pin = this.pin.dropLast(1)
+
+    }
+
+    private fun onClearPin(){
+        this.pin = ""
     }
 
     private val _uiEvent = Channel<UiEvent>()
@@ -65,8 +71,10 @@ class PinViewModel @Inject constructor() : ViewModel()  {
 //                pinError = false
 //            )
             if (unlockPin  ==  pin){
+                onClearPin()
                 _uiEvent.send(UiEvent.Success)
             }else{
+                onClearPin()
                 UiEvent.showErrorMessagge(
                     UiText.StringResource(R.string.incorrect_pin)
                 )
