@@ -5,4 +5,5 @@ object Route {
     const val CARDS = "cards"
     const val CARDS_DETAILS = "cards_details"
     const val PIN_CODE = "pin_code"
+    const val PIN_VERIFICATION="pin_verification"
 }

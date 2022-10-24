@@ -1,4 +1,4 @@
-package com.surepay.cards_presentation.pincode
+package com.surepay.cards_presentation.pin_verification
 
 import android.util.Log
 import androidx.compose.runtime.Composable

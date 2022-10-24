@@ -1,11 +1,13 @@
-package com.surepay.cards_presentation.pincode
+package com.surepay.cards_presentation.pin_verification
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.surepay.core.R
 import com.surepay.core.util.UiEvent
+import com.surepay.core.util.UiText
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -28,17 +30,20 @@ class PinViewModel @Inject constructor() : ViewModel()  {
 
     fun onPinEnter(pin: String) {
         this.pin += pin
+
+        if (this.pin.length==4){
+            onEvent(PinEvent.PinUpdated(pin))
+        }
     }
 
     fun onPinDelete(){
        this.pin = this.pin.dropLast(1)
-        print("DELETE $pin")
     }
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun onEvent(event: PinEvent) {
+    private fun onEvent(event: PinEvent) {
         when (event) {
             is PinEvent.PinUpdated -> {
                 executePin(pin)
@@ -54,13 +59,18 @@ class PinViewModel @Inject constructor() : ViewModel()  {
     }
 
     private fun executePin(pin: String) {
-
         viewModelScope.launch {
-            state = state.copy(
-                pinLoading =  true,
-                pinError = false
-            )
-
+//            state = state.copy(
+//                pinLoading =  true,
+//                pinError = false
+//            )
+            if (unlockPin  ==  pin){
+                _uiEvent.send(UiEvent.Success)
+            }else{
+                UiEvent.showErrorMessagge(
+                    UiText.StringResource(R.string.incorrect_pin)
+                )
+            }
         }
 
     }

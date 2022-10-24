@@ -8,6 +8,7 @@
     <string name="email_hint">Email Address</string>
     <string name="password_hint">Password</string>
     <string name="not_valid_email">Email not valid</string>
+    <string name="incorrect_pin">Incorrect Pin</string>
     <string name="email_password_error">Email or Password Empty</string>
     //card details
     <string name="proceed">Proceed</string>

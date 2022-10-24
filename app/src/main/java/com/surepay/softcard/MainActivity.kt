@@ -1,6 +1,5 @@
 package com.surepay.softcard
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +16,8 @@ import androidx.navigation.navArgument
 import com.surepay.auth_presentation.login.LoginScreen
 import com.surepay.cards_presentation.card_details.CardDetailsScreen
 import com.surepay.cards_presentation.CardsScreen
-import com.surepay.cards_presentation.pincode.PinScreen
+import com.surepay.cards_presentation.pin_verification.PinScreen
+import com.surepay.cards_presentation.pin_verification.PinVerificationScreen
 import com.surepay.core_ui.theme.SoftCardTheme
 import com.surepay.softcard.navigation.Route
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @ExperimentalComposeUiApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,7 +61,6 @@ class MainActivity : ComponentActivity() {
                                                 "/$cardNumber" +
                                                 "/$cardLogo"
                                     )
-
                                 }
                             )
                         }
@@ -82,7 +80,6 @@ class MainActivity : ComponentActivity() {
                                 navArgument("cardLogo"){
                                     type = NavType.IntType
                                 },
-
                             )
                         ){
                             val cardHolderName = it.arguments?.getString("cardHolderName")!!
@@ -98,23 +95,30 @@ class MainActivity : ComponentActivity() {
                                 cardLogo = cardLogo,
                                 onNavigateUp = {
                                     navController.navigateUp()
-
                                 },
                                 onNavigatePinCode = {
                                     navController.navigate(Route.PIN_CODE)
                                 }
                             )
-
                         }
+
                         composable(Route.PIN_CODE) {
                             PinScreen(
                                 scaffoldState = scaffoldState,
                                 onNavigateUp = {
                                     navController.navigateUp()
                                 },
-
-                               // pinCallbacks = noOpPinCallbacks,
+                               onNavigatePinVerification = {
+                                   navController.navigate(Route.PIN_VERIFICATION)
+                               }
                             )
+                        }
+
+                        composable(Route.PIN_VERIFICATION){
+                            PinVerificationScreen(scaffoldState = scaffoldState,
+                            onNavigateUp = {
+                                navController.navigateUp()
+                            })
                         }
                     }
                 }

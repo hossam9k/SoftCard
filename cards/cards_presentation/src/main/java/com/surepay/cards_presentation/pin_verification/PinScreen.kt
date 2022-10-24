@@ -1,4 +1,4 @@
-package com.surepay.cards_presentation.pincode
+package com.surepay.cards_presentation.pin_verification
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -27,14 +27,12 @@ import com.surepay.core_ui.theme.SoftCardTheme
 fun PinScreen(
     scaffoldState: ScaffoldState,
     onNavigateUp: () -> Unit,
+    onNavigatePinVerification: () -> Unit,
     pinViewModel: PinViewModel = hiltViewModel(),
-
-
     ){
     val spacing: Dimensions = LocalSpacing.current
     val state = pinViewModel.state
     val context = LocalContext.current
-
 
     LaunchedEffect(key1 = true) {
         pinViewModel.uiEvent.collect { event ->
@@ -45,15 +43,14 @@ fun PinScreen(
                     )
                 }
                 is UiEvent.Success -> {
+                    onNavigatePinVerification()
+
 
                 }
                 else -> Unit
             }
         }
     }
-
-
-
 
     Spacer(modifier = Modifier.height(spacing.spaceExtraLarge))
 
@@ -259,6 +256,7 @@ fun PinView(modifier: Modifier = Modifier,
         }
     }
 }
+
 
 
 @Preview

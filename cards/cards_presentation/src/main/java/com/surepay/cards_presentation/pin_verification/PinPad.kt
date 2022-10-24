@@ -1,4 +1,4 @@
-package com.surepay.cards_presentation.pincode
+package com.surepay.cards_presentation.pin_verification
 
 enum class PinPad(val value: Int) {
     ZERO(0),
