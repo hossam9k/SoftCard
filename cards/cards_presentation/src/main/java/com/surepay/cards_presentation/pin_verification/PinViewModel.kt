@@ -75,9 +75,12 @@ class PinViewModel @Inject constructor() : ViewModel()  {
                 _uiEvent.send(UiEvent.Success)
             }else{
                 onClearPin()
-                UiEvent.showErrorMessagge(
-                    UiText.StringResource(R.string.incorrect_pin)
+                _uiEvent.send(
+                    UiEvent.showErrorMessagge(
+                        UiText.StringResource(R.string.incorrect_pin)
+                    )
                 )
+
             }
         }
 
